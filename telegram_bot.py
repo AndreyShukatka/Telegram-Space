@@ -9,7 +9,7 @@ import telegram
 
 def create_parser():
     parser = argparse.ArgumentParser(description='Программа отправляет фотографии в Телеграмм канал с заданной интенсивностью')
-    parser.add_argument('-t', help='укажите количество секунд, которое необходимо для задержки отправления фото', default='10', type = int)
+    parser.add_argument('-t', help='укажите количество секунд, которое необходимо для задержки отправления фото', default='14400', type = int)
     parser.add_argument('-id', help='Указать id, на который необходимо посылать фотографии', default='@SpacePhotobyShukatka')
     args = parser.parse_args()
     return args
