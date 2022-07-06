@@ -13,15 +13,16 @@ def create_parser():
     args = parser.parse_args()
     return args
 
+
 def send_message_bot(chat_id, token, delay_time):
     bot = telegram.Bot(token=token)
     filesindir = os.walk('images')
     for root, dirs, files in filesindir:
         name_pictures = files
         while True:
-            picture_download = open(f'images/{random.choice(name_pictures)}', 'rb')
-            bot.send_photo(chat_id=chat_id, photo=picture_download)
-            picture_download.close()
+            picture_sending = open(f'images/{random.choice(name_pictures)}', 'rb')
+            bot.send_photo(chat_id=chat_id, photo=picture_sending)
+            picture_sending.close()
             time.sleep(delay_time)
 
 
@@ -30,6 +31,4 @@ if __name__ == '__main__':
     chat_id = '@SpacePhotobyShukatka'
     token = os.environ['TELEGRAM_TOKEN']
     delay_time = create_parser().t
-    print(delay_time)
     send_message_bot(chat_id, token, delay_time)
-
