@@ -1,9 +1,12 @@
-import datetime
-import requests
 import argparse
+import datetime
 import os
 from dotenv import load_dotenv
+
+import requests
+
 from downloads_images import download_image
+
 
 def create_parser():
     parser = argparse.ArgumentParser(description='Программа скачивает фотографии земли из космоса Nasa')
