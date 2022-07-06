@@ -33,7 +33,7 @@ def send_message_bot(chat_id, token, delay_time):
 
 if __name__ == '__main__':
     load_dotenv()
-    chat_id = chat_id = create_parser().id
+    chat_id = create_parser().id
     token = os.environ['TELEGRAM_TOKEN']
     delay_time = create_parser().t
     send_message_bot(chat_id, token, delay_time)
