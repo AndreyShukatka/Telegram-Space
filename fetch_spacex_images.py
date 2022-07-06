@@ -1,5 +1,7 @@
-import requests
 import argparse
+
+import requests
+
 from downloads_images import extract_file_extension, download_image
 
 
@@ -19,9 +21,8 @@ def fetch_spacex_last_launch(id_space):
     for url_number, url in enumerate(response_data):
         file_name = 'spacex{}_{}{}'.format(response.json()[0]['flight_number'],
                                            url_number,
-                                            extract_file_extension (url))
-        download_image(url,
-                       file_name)
+                                           extract_file_extension (url))
+        download_image(url, file_name)
 
 
 if __name__ == '__main__':
