@@ -8,7 +8,7 @@ import requests
 from downloads_images import download_image
 
 
-def create_parser():
+def parsing_input_command_line():
     parser = argparse.ArgumentParser(description='Программа скачивает фотографии земли из космоса Nasa')
     parser.add_argument('-a', help='Количество фото', default='5', type=int)
     args =parser.parse_args()
@@ -33,5 +33,5 @@ def nasa_epic_photo(nasa_token, epic_photos_amount):
 if __name__ == '__main__':
     load_dotenv()
     nasa_token = os.environ['TOKEN_NASA']
-    epic_photos_amount = create_parser().a
+    epic_photos_amount = parsing_input_command_line().a
     nasa_epic_photo(nasa_token, epic_photos_amount)
