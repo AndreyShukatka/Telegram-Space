@@ -14,11 +14,15 @@ def create_parser():
     args = parser.parse_args()
     return args
 
+def create_list_pictures():
+    path_pictures = list()
+    for root, dir, file in os.walk('images'):
+        for name_picture in file:
+            path_pictures.append(os.path.join(root, name_picture))
+    return path_pictures
+
 def send_message_bot(chat_id, token, delay_time):
     bot = telegram.Bot(token=token)
-    filesindir = os.walk('images')
-    for root, dirs, files in filesindir:
-        name_pictures = files.copy()
         while True:
             if len(name_pictures) >= 1:
                 picture_download = open(f'images/{random.choice(name_pictures)}', 'rb')
