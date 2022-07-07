@@ -21,23 +21,21 @@ def create_list_pictures():
             pictures_path.append(os.path.join(root, picture_name))
     return pictures_path
 
-def send_photo(chat_id, token, delay_time, pictures_path):
+def send_photo(chat_id, token, delay_time, pictures_paths):
     bot = telegram.Bot(token=token)
     while True:
-        if len(pictures_path) >= 1:
-            with open (random.choice(pictures_path), 'rb') as pictures:
+        random.shuffle(pictures_paths)
+        for picture_path in pictures_paths:
+            with open(picture_path, 'rb') as pictures:
                 bot.send_photo(chat_id, pictures)
-            pictures_path.remove(pictures.name)
             time.sleep(delay_time)
-        elif len(pictures_path) < 1:
-            pictures_path = files.copy()
-            random.shuffle(name_pictures)
 
 
 if __name__ == '__main__':
     load_dotenv()
+    pictures_paths = create_list_pictures()
     chat_id = create_parser().id
     token = os.environ['TELEGRAM_TOKEN']
     delay_time = create_parser().t
-    send_message_bot(chat_id, token, delay_time)
+    send_photo(chat_id, token, delay_time, pictures_paths)
 
