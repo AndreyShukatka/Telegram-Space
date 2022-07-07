@@ -23,7 +23,7 @@ def nasa_download_image(nasa_token, count):
         file_name = 'nasa_appod_{}{}'.format(url_number,
                                              extract_file_extension (url))
         download_image(url,
-                       file_name, nasa_token)
+                       file_name)
 
 
 if __name__ == '__main__':
