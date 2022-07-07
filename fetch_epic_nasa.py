@@ -1,10 +1,11 @@
-import datetime
+from datetime import datetime
 import requests
 import argparse
 import os
 import urllib
 from dotenv import load_dotenv
 from downloads_images import download_image
+
 
 def create_parser():
     parser = argparse.ArgumentParser(description='Программа скачивает фотографии земли из космоса Nasa')
@@ -21,11 +22,11 @@ def nasa_epic_photo(nasa_token, epic_photos_amount):
     response.raise_for_status()
     flight_database = response.json()
     for day in range(epic_photos_amount):
-        epic_date = datetime.datetime.fromisoformat(flight_database[day]['date'])
+        epic_date = datetime.fromisoformat(flight_database[day]['date'])
         url = '{}{}/png/{}.png'.format(epic_base_url,
                                         epic_date.strftime('%Y/%m/%d'),
                                         flight_database[day]['image'])
-        file_name = 'epic_Nasa_{}.png'.format(datetime.datetime.fromisoformat(flight_database[day]['date']).strftime('%Y_%m_%d_%H_%M'))
+        file_name = 'epic_Nasa_{}.png'.format(datetime.fromisoformat(flight_database[day]['date']).strftime('%Y_%m_%d_%H_%M'))
         download_image(url, file_name, nasa_token)
 
 if __name__ == '__main__':
