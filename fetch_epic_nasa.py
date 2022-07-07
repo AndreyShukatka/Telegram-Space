@@ -1,16 +1,14 @@
-import argparse
 import datetime
-import os
-from dotenv import load_dotenv
-
 import requests
-
+import argparse
+import os
+import urllib
+from dotenv import load_dotenv
 from downloads_images import download_image
 
-
-def parsing_input_command_line():
+def create_parser():
     parser = argparse.ArgumentParser(description='Программа скачивает фотографии земли из космоса Nasa')
-    parser.add_argument('-a', help='Количество фото', default='5', type=int)
+    parser.add_argument('-с', help='Количество фото', default='5', type=int)
     args =parser.parse_args()
     return args
 
@@ -20,18 +18,19 @@ def nasa_epic_photo(nasa_token, epic_photos_amount):
     params = {'api_key': nasa_token}
     response = requests.get(nasa_url,
                             params=params)
+    response.raise_for_status()
     reply = response.json()
     for day in range(epic_photos_amount):
         epic_date = datetime.datetime.fromisoformat(reply[day]['date'])
-        url = '{}{}/png/{}.png?api_key={}'.format(epic_base_url,
-                                                  epic_date.strftime('%Y/%m/%d'),
-                                                  reply[day]['image'],
-                                                  nasa_token)
+        url = '{}{}/png/{}.png?{}'.format(epic_base_url,
+                                        epic_date.strftime('%Y/%m/%d'),
+                                        reply[day]['image'],
+                                        urllib.parse.urlencode(params))
         file_name = 'epic_Nasa_{}.png'.format(datetime.datetime.fromisoformat(reply[day]['date']).strftime('%Y_%m_%d_%H_%M'))
         download_image(url, file_name)
 
 if __name__ == '__main__':
     load_dotenv()
     nasa_token = os.environ['TOKEN_NASA']
-    epic_photos_amount = parsing_input_command_line().a
+    epic_photos_amount = create_parser().с
     nasa_epic_photo(nasa_token, epic_photos_amount)
