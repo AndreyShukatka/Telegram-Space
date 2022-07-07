@@ -21,7 +21,7 @@ def create_list_pictures():
             pictures_path.append(os.path.join(root, picture_name))
     return pictures_path
 
-def send_photo(chat_id, token, delay_time, pictures_paths):
+def bot_send_photo(chat_id, token, delay_time, pictures_paths):
     bot = telegram.Bot(token=token)
     while True:
         random.shuffle(pictures_paths)
@@ -36,5 +36,5 @@ if __name__ == '__main__':
     token = os.environ['TELEGRAM_TOKEN']
     args = create_parser()
     pictures_paths = create_list_pictures()
-    send_photo(args, token, pictures_paths)
+    bot_send_photo(args, token, pictures_paths)
 
