@@ -25,10 +25,9 @@ def send_message_bot(chat_id, token, delay_time):
     bot = telegram.Bot(token=token)
         while True:
             if len(name_pictures) >= 1:
-                picture_download = open(f'images/{random.choice(name_pictures)}', 'rb')
-                bot.send_photo(chat_id=chat_id, photo=picture_download)
-                picture_download.close()
-                name_pictures.remove(picture_download.name.split('/')[1])
+                with open (random.choice(path_pictures), 'rb') as pictures:
+                    bot.send_photo(chat_id, pictures)
+                path_pictures.remove(pictures.name)
                 time.sleep(delay_time)
             elif len(name_pictures) < 1:
                 name_pictures = files.copy()
