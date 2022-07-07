@@ -33,9 +33,8 @@ def send_photo(chat_id, token, delay_time, pictures_paths):
 
 if __name__ == '__main__':
     load_dotenv()
-    pictures_paths = create_list_pictures()
-    chat_id = create_parser().id
     token = os.environ['TELEGRAM_TOKEN']
-    delay_time = create_parser().t
-    send_photo(chat_id, token, delay_time, pictures_paths)
+    args = create_parser()
+    pictures_paths = create_list_pictures()
+    send_photo(args, token, pictures_paths)
 
