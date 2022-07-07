@@ -13,7 +13,7 @@ def create_parser():
     args =parser.parse_args()
     return args
 
-def nasa_epic_photo(nasa_token, epic_photos_amount):
+def download_epic_photo(nasa_token, epic_photos_amount):
     nasa_url = 'https://api.nasa.gov/EPIC/api/natural/'
     epic_base_url = 'https://api.nasa.gov/EPIC/archive/natural/'
     params = {'api_key': nasa_token}
@@ -34,4 +34,4 @@ if __name__ == '__main__':
     load_dotenv()
     nasa_token = os.environ['TOKEN_NASA']
     epic_photos_amount = create_parser().с
-    nasa_epic_photo(nasa_token, epic_photos_amount)
+    download_epic_photo(nasa_token, epic_photos_amount)
