@@ -18,7 +18,7 @@ def nasa_download_image(nasa_token, count):
     response = requests.get(nasa_url, params=params)
     response.raise_for_status()
     photo_information = response.json()
-    for url_number, data in enumerate(photo_information):
+    for number, data in enumerate(photo_information):
         url = data['url']
         file_name = 'nasa_appod_{}{}'.format(url_number,
                                              extract_file_extension (url))
