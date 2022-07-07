@@ -7,7 +7,7 @@ import requests
 from downloads_images import extract_file_extension, download_image
 
 
-def create_parser():
+def parsing_input_command_line():
     parser = argparse.ArgumentParser(description='Программа скачивает фотографии космоса Nasa')
     parser.add_argument('-c', help='Количество фото', default='5')
     args =parser.parse_args()
@@ -31,5 +31,5 @@ def nasa_download_image(nasa_token, count):
 if __name__ == '__main__':
     load_dotenv()
     nasa_token = os.environ['TOKEN_NASA']
-    count = create_parser().c
+    count = parsing_input_command_line().c
     nasa_download_image(nasa_token, count)
