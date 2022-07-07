@@ -20,14 +20,13 @@ def nasa_epic_photo(nasa_token, epic_photos_amount):
                             params=params)
     response.raise_for_status()
     reply = response.json()
-    for day in range(epic_photos_amount):
+        for day in range(epic_photos_amount):
         epic_date = datetime.datetime.fromisoformat(reply[day]['date'])
-        url = '{}{}/png/{}.png?{}'.format(epic_base_url,
+        url = '{}{}/png/{}.png'.format(epic_base_url,
                                         epic_date.strftime('%Y/%m/%d'),
-                                        reply[day]['image'],
-                                        urllib.parse.urlencode(params))
+                                        reply[day]['image'])
         file_name = 'epic_Nasa_{}.png'.format(datetime.datetime.fromisoformat(reply[day]['date']).strftime('%Y_%m_%d_%H_%M'))
-        download_image(url, file_name)
+        download_image(url, file_name, nasa_token)
 
 if __name__ == '__main__':
     load_dotenv()
