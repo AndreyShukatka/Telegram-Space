@@ -19,12 +19,12 @@ def nasa_epic_photo(nasa_token, epic_photos_amount):
     response = requests.get(nasa_url,
                             params=params)
     response.raise_for_status()
-    reply = response.json()
-        for day in range(epic_photos_amount):
-        epic_date = datetime.datetime.fromisoformat(reply[day]['date'])
+    flight_database = response.json()
+    for day in range(epic_photos_amount):
+        epic_date = datetime.datetime.fromisoformat(flight_database[day]['date'])
         url = '{}{}/png/{}.png'.format(epic_base_url,
                                         epic_date.strftime('%Y/%m/%d'),
-                                        reply[day]['image'])
+                                        flight_database[day]['image'])
         file_name = 'epic_Nasa_{}.png'.format(datetime.datetime.fromisoformat(reply[day]['date']).strftime('%Y_%m_%d_%H_%M'))
         download_image(url, file_name, nasa_token)
 
