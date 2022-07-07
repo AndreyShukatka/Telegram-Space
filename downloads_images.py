@@ -4,8 +4,9 @@ import pathlib
 import requests
 
 
-def download_image (url, file_name):
-    img = requests.get(url)
+def download_image (url, file_name, nasa_token):
+    params = {'api_key': nasa_token}
+    img = requests.get(url, params=params)
     img.raise_for_status()
     folder_name = 'images/{}'.format(file_name)
     pathlib.Path('images').mkdir(parents=True,
