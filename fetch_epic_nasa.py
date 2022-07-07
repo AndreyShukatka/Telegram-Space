@@ -26,7 +26,8 @@ def nasa_epic_photo(nasa_token, epic_photos_amount):
         url = '{}{}/png/{}.png'.format(epic_base_url,
                                         epic_date.strftime('%Y/%m/%d'),
                                         flight_database[day]['image'])
-        file_name = 'epic_Nasa_{}.png'.format(datetime.fromisoformat(flight_database[day]['date']).strftime('%Y_%m_%d_%H_%M'))
+        file_name = 'epic_Nasa_{}.png'.format(datetime.fromisoformat(flight_database[day]
+                                                                     ['date']).strftime('%Y_%m_%d_%H_%M'))
         download_image(url, file_name, nasa_token)
 
 if __name__ == '__main__':
