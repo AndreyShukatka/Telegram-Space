@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import telegram
 
 
-def create_parser():
+def parsing_input_command_line():
     parser = argparse.ArgumentParser(description='Программа отправляет фотографии в Телеграмм канал с заданной интенсивностью')
     parser.add_argument('-t', help='укажите количество секунд, которое необходимо для задержки отправления фото', default='14400', type = int)
     parser.add_argument('-id', help='Указать id, на который необходимо посылать фотографии', default='@SpacePhotobyShukatka')
@@ -34,7 +34,7 @@ def bot_send_photo(chat_id, token, delay_time, pictures_paths):
 if __name__ == '__main__':
     load_dotenv()
     token = os.environ['TELEGRAM_TOKEN']
-    args = create_parser()
+    args = parsing_input_command_line()
     pictures_paths = create_list_pictures()
     bot_send_photo(args, token, pictures_paths)
 
