@@ -30,8 +30,9 @@ def parsing_input_command_line():
 
 def create_list_pictures():
     paths_to_pictures = list()
-    for root, dir, photo_names in os.walk('images'):
-        for picture_name in photo_names:
+    for root, dir, photo_filenames in os.walk('images'):
+        print(photo_filenames)
+        for picture_name in photo_filenames:
             paths_to_pictures.append(os.path.join(root, picture_name))
     return paths_to_pictures
 
