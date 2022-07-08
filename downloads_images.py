@@ -12,8 +12,10 @@ def download_image(url, file_name):
     img = requests.get(url, params=params)
     img.raise_for_status()
     folder_name = 'images/{}'.format(file_name)
-    pathlib.Path('images').mkdir(parents=True,
-                                 exist_ok=True)
+    pathlib.Path('images').mkdir(
+        parents=True,
+        exist_ok=True
+    )
     with open(folder_name, 'wb') as file:
         file.write(img.content)
 
