@@ -3,7 +3,7 @@ import argparse
 from downloads_images import extract_file_extension, download_image
 
 
-def parsing_input_command_line():
+def input_parsing_command_line():
     parser = argparse.ArgumentParser(
         description='Программа скачивает фотографии запуска SpaceX'
     )
@@ -30,5 +30,5 @@ def fetch_spacex_last_launch(id_space):
 
 
 if __name__ == '__main__':
-    id_space = parsing_input_command_line().id
+    id_space = input_parsing_command_line().id
     fetch_spacex_last_launch(id_space)
