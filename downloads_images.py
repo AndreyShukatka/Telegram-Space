@@ -4,7 +4,8 @@ import urllib
 import requests
 from dotenv import load_dotenv
 
-def download_image (url, file_name):
+
+def download_image(url, file_name):
     load_dotenv()
     nasa_token = os.environ['TOKEN_NASA']
     params = {'api_key': nasa_token}
@@ -17,7 +18,7 @@ def download_image (url, file_name):
         file.write(img.content)
 
 
-def extract_file_extension (url):
+def extract_file_extension(url):
     link, extension = os.path.splitext(url)
     file_extension = urllib.parse.urlsplit(extension).path
     return file_extension
