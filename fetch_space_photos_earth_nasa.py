@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from downloads_images import download_image
 
 
-def create_parser():
+def input_parsing_command_line():
     parser = argparse.ArgumentParser(
         description='Программа скачивает фотографии земли из космоса Nasa'
     )
@@ -45,5 +45,5 @@ def download_epic_photo(nasa_token, epic_photos_amount):
 if __name__ == '__main__':
     load_dotenv()
     nasa_token = os.environ['TOKEN_NASA']
-    epic_photos_amount = create_parser().с
+    epic_photos_amount = input_parsing_command_line().с
     download_epic_photo(nasa_token, epic_photos_amount)
