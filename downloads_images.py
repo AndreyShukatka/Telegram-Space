@@ -1,7 +1,8 @@
 import os
 import pathlib
-import urllib
 import requests
+from urllib.parse import unquote
+from urllib.parse import urlsplit
 
 
 def download_image(url, file_name, params):
@@ -15,6 +16,6 @@ def download_image(url, file_name, params):
 
 
 def extract_file_extension(url):
-    link, extension = os.path.splitext(url)
-    file_extension = urllib.parse.urlsplit(extension).path
-    return file_extension
+    path, filename_extension = os.path.split(urlsplit(url).path)
+    file, extension = (os.path.splitext(filename_extension))
+    return extension
