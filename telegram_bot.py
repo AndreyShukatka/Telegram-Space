@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import telegram
 
 
-def input_parsing_command_line():
+def parsing_input_command_line():
     parser = argparse.ArgumentParser(
         description='Программа отправляет фотографии'
                     ' в Телеграмм канал с заданной интенсивностью'
@@ -28,7 +28,7 @@ def input_parsing_command_line():
     return args
 
 
-def сreate_images_list():
+def add_photo_paths():
     paths_to_pictures = list()
     for root, directory, photo_filenames in os.walk('images'):
         for picture_name in photo_filenames:
@@ -49,6 +49,6 @@ def publish_images_to_channel(args, token, pictures_paths):
 if __name__ == '__main__':
     load_dotenv()
     token = os.environ['TELEGRAM_TOKEN']
-    args = input_parsing_command_line()
-    pictures_paths = сreate_images_list()
+    args = parsing_input_command_line()
+    pictures_paths = add_photo_paths()
     publish_images_to_channel(args, token, pictures_paths)
