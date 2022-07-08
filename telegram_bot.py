@@ -8,11 +8,25 @@ import telegram
 
 
 def parsing_input_command_line():
-    parser = argparse.ArgumentParser(description='Программа отправляет фотографии в Телеграмм канал с заданной интенсивностью')
-    parser.add_argument('-t', help='укажите количество секунд, которое необходимо для задержки отправления фото', default='14400', type = int)
-    parser.add_argument('-id', help='Указать id, на который необходимо посылать фотографии', default='@SpacePhotobyShukatka')
+    parser = argparse.ArgumentParser(
+        description='Программа отправляет фотографии'
+                    ' в Телеграмм канал с заданной интенсивностью'
+    )
+    parser.add_argument(
+        '-t',
+        help='укажите количество секунд, которое '
+             'необходимо для задержки отправления фото',
+        default='14400',
+        type=int
+    )
+    parser.add_argument(
+        '-id',
+        help='Указать id, на который необходимо посылать фотографии',
+        default='@SpacePhotobyShukatka'
+    )
     args = parser.parse_args()
     return args
+
 
 def create_list_pictures():
     pictures_path = list()
@@ -20,6 +34,7 @@ def create_list_pictures():
         for picture_name in file:
             pictures_path.append(os.path.join(root, picture_name))
     return pictures_path
+
 
 def bot_send_photo(chat_id, token, delay_time, pictures_paths):
     bot = telegram.Bot(token=token)
@@ -37,4 +52,3 @@ if __name__ == '__main__':
     args = parsing_input_command_line()
     pictures_paths = create_list_pictures()
     bot_send_photo(args, token, pictures_paths)
-
