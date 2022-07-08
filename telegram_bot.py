@@ -29,21 +29,21 @@ def parsing_input_command_line():
 
 
 def create_list_pictures():
-    pictures_path = list()
+    paths_to_pictures = list()
     for root, dir, file in os.walk('images'):
         for picture_name in file:
-            pictures_path.append(os.path.join(root, picture_name))
-    return pictures_path
+            paths_to_pictures.append(os.path.join(root, picture_name))
+    return paths_to_pictures
 
 
-def bot_send_photo(chat_id, token, delay_time, pictures_paths):
+def bot_send_photo(args, token, pictures_paths):
     bot = telegram.Bot(token=token)
     while True:
         random.shuffle(pictures_paths)
         for picture_path in pictures_paths:
             with open(picture_path, 'rb') as pictures:
-                bot.send_photo(chat_id, pictures)
-            time.sleep(delay_time)
+                bot.send_photo(args.id, pictures)
+            time.sleep(args.t)
 
 
 if __name__ == '__main__':
