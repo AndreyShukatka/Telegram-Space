@@ -12,9 +12,9 @@ def input_parsing_command_line():
     return args
 
 
-def fetch_spacex_last_launch(id_space):
+def fetch_spacex_last_launch(space_id):
     spacex_url = 'https://api.spacexdata.com/v3/launches/'
-    params = {'flight_number': id_space}
+    params = {'flight_number': space_id}
     response = requests.get(spacex_url, params=params)
     response.raise_for_status()
     response_data = response.json()[0]['links']['flickr_images']
@@ -31,5 +31,5 @@ def fetch_spacex_last_launch(id_space):
 
 
 if __name__ == '__main__':
-    id_space = input_parsing_command_line().id
-    fetch_spacex_last_launch(id_space)
+    space_id = input_parsing_command_line().id
+    fetch_spacex_last_launch(space_id)
