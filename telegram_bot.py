@@ -28,7 +28,7 @@ def input_parsing_command_line():
     return args
 
 
-def create_list_pictures():
+def сreate_images_list():
     paths_to_pictures = list()
     for root, directory, photo_filenames in os.walk('images'):
         for picture_name in photo_filenames:
@@ -50,5 +50,5 @@ if __name__ == '__main__':
     load_dotenv()
     token = os.environ['TELEGRAM_TOKEN']
     args = input_parsing_command_line()
-    pictures_paths = create_list_pictures()
+    pictures_paths = сreate_images_list()
     publish_images_to_channel(args, token, pictures_paths)
