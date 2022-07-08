@@ -36,7 +36,7 @@ def create_list_pictures():
     return paths_to_pictures
 
 
-def send_photos_by_bot(args, token, pictures_paths):
+def publish_images_to_channel(args, token, pictures_paths):
     bot = telegram.Bot(token=token)
     while True:
         random.shuffle(pictures_paths)
@@ -51,5 +51,4 @@ if __name__ == '__main__':
     token = os.environ['TELEGRAM_TOKEN']
     args = parsing_input_command_line()
     pictures_paths = create_list_pictures()
-    print(pictures_paths)
-    send_photos_by_bot(args, token, pictures_paths)
+    publish_images_to_channel(args, token, pictures_paths)
