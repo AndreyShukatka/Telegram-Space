@@ -18,10 +18,8 @@ def fetch_spacex_last_launch(space_id):
     response = requests.get(spacex_url, params=params)
     response.raise_for_status()
     response_data = response.json()['links']['flickr']['original']
-    flight_number = response.json()['flight_number']
     for url_number, url in enumerate(response_data):
-        file_name = 'spacex{}_{}{}'.format(
-            flight_number,
+        file_name = 'spacex{}{}'.format(
             url_number,
             extract_file_extension(url)
         )
