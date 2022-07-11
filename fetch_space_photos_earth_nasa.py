@@ -37,7 +37,7 @@ def download_epic_photo(nasa_token, epic_photos_amount):
         )
         file_name = 'epic_Nasa_{}.png'.format(
             datetime.fromisoformat(
-                flight_database[day]['date']
+                flight_information[day]['date']
             ).strftime('%Y_%m_%d_%H_%M')
         )
         download_image(url, file_name, params)
