@@ -10,20 +10,19 @@ def input_parsing_command_line():
     parser = argparse.ArgumentParser(
         description='Программа скачивает фотографии земли из космоса Nasa'
     )
-    parser.add_argument(
-        '-с',
-        help='Количество фото',
-        default='5',
-        type=int
-    )
+    parser.add_argument('-с',
+                        help='Количество фото',
+                        default='5',
+                        type=int
+                        )
     args = parser.parse_args()
     return args
 
 
-def download_epic_photo(nasa_token, epic_photos_amount):
+def download_epic_photo(token_nasa, epic_photos_amount):
     nasa_url = 'https://api.nasa.gov/EPIC/api/natural/'
     epic_base_url = 'https://api.nasa.gov/EPIC/archive/natural/'
-    params = {'api_key': nasa_token}
+    params = {'api_key': token_nasa}
     response = requests.get(nasa_url,
                             params=params)
     response.raise_for_status()
@@ -45,6 +44,6 @@ def download_epic_photo(nasa_token, epic_photos_amount):
 
 if __name__ == '__main__':
     load_dotenv()
-    nasa_token = os.environ['TOKEN_NASA']
+    token_nasa = os.environ['TOKEN_NASA']
     epic_photos_amount = input_parsing_command_line().с
-    download_epic_photo(nasa_token, epic_photos_amount)
+    download_epic_photo(token_nasa, epic_photos_amount)
