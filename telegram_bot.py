@@ -29,20 +29,19 @@ def input_parsing_command_line():
 
 
 def add_photo_paths():
-    paths_to_pictures = list()
-    for root, directory, photo_filenames in os.walk('images'):
-        for picture_name in photo_filenames:
-            paths_to_pictures.append(os.path.join(root, picture_name))
-    return paths_to_pictures
+    paths = list()
+    for root, directory, filenames in os.walk('images'):
+        for picture in filenames:
+            paths.append(os.path.join(root, picture))
+    return paths
 
 
-def publish_images_to_channel(args, token, pictures_paths):
+def publish_images_to_channel(args, token, paths):
     bot = telegram.Bot(token=token)
     while True:
-
-            random.shuffle(pictures_paths)
-            for picture_path in pictures_paths:
-                with open(picture_path, 'rb') as pictures:
+            random.shuffle(paths)
+            for path in paths:
+                with open(path, 'rb') as pictures:
                     try:
                         bot.send_photo(args.id, pictures)
                     except:
@@ -58,5 +57,5 @@ if __name__ == '__main__':
     chanel_id = os.environ['CHANEL_ID']
     token = os.environ['TELEGRAM_TOKEN']
     args = input_parsing_command_line()
-    pictures_paths = add_photo_paths()
-    publish_images_to_channel(args, token, pictures_paths)
+    paths = add_photo_paths()
+    publish_images_to_channel(args, token, paths)
