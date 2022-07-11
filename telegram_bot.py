@@ -16,7 +16,7 @@ def input_parsing_command_line():
         '-t',
         help='укажите количество секунд, которое '
              'необходимо для задержки отправления фото',
-        default='14400',
+        default='10',
         type=int
     )
     parser.add_argument(
@@ -39,11 +39,18 @@ def add_photo_paths():
 def publish_images_to_channel(args, token, pictures_paths):
     bot = telegram.Bot(token=token)
     while True:
-        random.shuffle(pictures_paths)
-        for picture_path in pictures_paths:
-            with open(picture_path, 'rb') as pictures:
-                bot.send_photo(args.id, pictures)
-            time.sleep(args.t)
+
+            random.shuffle(pictures_paths)
+            for picture_path in pictures_paths:
+                with open(picture_path, 'rb') as pictures:
+                    try:
+                        bot.send_photo(args.id, pictures)
+                    except:
+                        print('Ошибка подключения, повторное подключение через 20 секунд')
+                        time.sleep(20)
+                time.sleep(args.t)
+
+
 
 
 if __name__ == '__main__':
