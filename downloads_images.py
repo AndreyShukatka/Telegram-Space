@@ -16,5 +16,4 @@ def download_image(url, file_name, params):
 
 def extract_file_extension(url):
     path, filename_tail = os.path.split(urlsplit(url).path)
-    file, extension = (os.path.splitext(filename_tail))
-    return extension
+    return os.path.splitext(filename_tail)[-1]
