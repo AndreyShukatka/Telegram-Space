@@ -50,8 +50,6 @@ def publish_images_to_channel(args, token, paths):
                 time.sleep(args.t)
 
 
-
-
 if __name__ == '__main__':
     load_dotenv()
     chanel_id = os.environ['CHANEL_ID']
