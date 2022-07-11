@@ -22,7 +22,7 @@ def input_parsing_command_line():
     parser.add_argument(
         '-id',
         help='Указать id, на который необходимо посылать фотографии',
-        default='@SpacePhotobyShukatka'
+        default=chanel_id
     )
     args = parser.parse_args()
     return args
@@ -48,6 +48,7 @@ def publish_images_to_channel(args, token, pictures_paths):
 
 if __name__ == '__main__':
     load_dotenv()
+    chanel_id = os.environ['CHANEL_ID']
     token = os.environ['TELEGRAM_TOKEN']
     args = input_parsing_command_line()
     pictures_paths = add_photo_paths()
