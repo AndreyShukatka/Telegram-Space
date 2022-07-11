@@ -18,10 +18,10 @@ def input_parsing_command_line():
     return args
 
 
-def nasa_download_image(token_nasa, photos_count):
-    nasa_url = 'https://api.nasa.gov/planetary/apod'
-    params = {'api_key': token_nasa, 'count': photos_count}
-    response = requests.get(nasa_url, params=params)
+def nasa_download_image(token, photos_count):
+    url = 'https://api.nasa.gov/planetary/apod'
+    params = {'api_key': token, 'count': photos_count}
+    response = requests.get(url, params=params)
     response.raise_for_status()
     photo_information = response.json()
     for number, flight_information in enumerate(photo_information):
@@ -39,6 +39,6 @@ def nasa_download_image(token_nasa, photos_count):
 
 if __name__ == '__main__':
     load_dotenv()
-    token_nasa = os.environ['TOKEN_NASA']
+    token = os.environ['TOKEN_NASA']
     photos_count = input_parsing_command_line().c
-    nasa_download_image(token_nasa, photos_count)
+    nasa_download_image(token, photos_count)
