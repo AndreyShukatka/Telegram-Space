@@ -3,7 +3,7 @@ import os
 import random
 import time
 from dotenv import load_dotenv
-
+import requests
 import telegram
 
 
@@ -16,7 +16,7 @@ def input_parsing_command_line():
         '-t',
         help='укажите количество секунд, которое '
              'необходимо для задержки отправления фото',
-        default='10',
+        default= '10',
         type=int
     )
     parser.add_argument(
@@ -44,16 +44,17 @@ def publish_images_to_channel(args, token, paths):
             with open(path, 'rb') as pictures:
                 try:
                     bot.send_photo(args.id, pictures)
-                except:
+                except requests.exceptions.ConnectionError:
                     print('Ошибка подключения, повторное подключение через 20 секунд')
-                    time.sleep(seconds=20)
-            time.sleep(seconds=args.t)
+                    time.sleep(seconds)
+            time.sleep(args.t)
 
 
 if __name__ == '__main__':
     load_dotenv()
     chanel_id = os.environ['CHANEL_ID']
     token = os.environ['TELEGRAM_TOKEN']
+    seconds = 20
     args = input_parsing_command_line()
     paths = add_photo_paths()
     publish_images_to_channel(args, token, paths)
