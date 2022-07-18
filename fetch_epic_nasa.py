@@ -44,6 +44,6 @@ def download_epic_photo(token, amount):
 
 if __name__ == '__main__':
     load_dotenv()
-    token = os.environ['TOKEN_NASA']
+    token = os.environ['NASA_TOKEN']
     amount = input_parsing_command_line().с
     download_epic_photo(token, amount)
