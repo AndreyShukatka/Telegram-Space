@@ -39,6 +39,6 @@ def nasa_download_image(token, photos_count):
 
 if __name__ == '__main__':
     load_dotenv()
-    token = os.environ['TOKEN_NASA']
+    token = os.environ['NASA_TOKEN']
     photos_count = input_parsing_command_line().c
     nasa_download_image(token, photos_count)
