@@ -44,8 +44,8 @@ def publish_images_to_channel(args, token, paths):
             with open(path, 'rb') as pictures:
                 try:
                     bot.send_photo(args.id, pictures)
-                except requests.exceptions.ConnectionError:
-                    print('Ошибка подключения, повторное подключение через 20 секунд')
+                except telegram.error.NetworkError:
+                    print('Неудачная попытка соединения, reconnect через 20 секунд')
                     time.sleep(seconds)
             time.sleep(args.t)
 
