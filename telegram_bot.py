@@ -46,8 +46,8 @@ def publish_images_to_channel(args, token, paths):
                         bot.send_photo(args.id, pictures)
                     except:
                         print('Ошибка подключения, повторное подключение через 20 секунд')
-                        time.sleep(20)
-                time.sleep(args.t)
+                        time.sleep(seconds=20)
+                time.sleep(seconds=args.t)
 
 
 if __name__ == '__main__':
