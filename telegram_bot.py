@@ -39,15 +39,15 @@ def add_photo_paths():
 def publish_images_to_channel(args, token, paths):
     bot = telegram.Bot(token=token)
     while True:
-            random.shuffle(paths)
-            for path in paths:
-                with open(path, 'rb') as pictures:
-                    try:
-                        bot.send_photo(args.id, pictures)
-                    except:
-                        print('Ошибка подключения, повторное подключение через 20 секунд')
-                        time.sleep(seconds=20)
-                time.sleep(seconds=args.t)
+        random.shuffle(paths)
+        for path in paths:
+            with open(path, 'rb') as pictures:
+                try:
+                    bot.send_photo(args.id, pictures)
+                except:
+                    print('Ошибка подключения, повторное подключение через 20 секунд')
+                    time.sleep(seconds=20)
+            time.sleep(seconds=args.t)
 
 
 if __name__ == '__main__':
