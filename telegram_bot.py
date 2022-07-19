@@ -7,7 +7,7 @@ import telegram
 
 
 def input_parsing_command_line():
-    chanel_id = os.environ['CHANEL_ID']
+    chanel_id = os.environ['TELEGRAM_CHANEL_ID']
     parser = argparse.ArgumentParser(
         description='Программа отправляет фотографии'
                     ' в Телеграмм канал с заданной интенсивностью'
