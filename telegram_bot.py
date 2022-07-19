@@ -3,7 +3,6 @@ import os
 import random
 import time
 from dotenv import load_dotenv
-import requests
 import telegram
 
 
