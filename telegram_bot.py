@@ -3,6 +3,7 @@ import os
 import random
 import time
 from dotenv import load_dotenv
+import requests
 import telegram
 
 
@@ -23,6 +24,11 @@ def input_parsing_command_line():
         help='Указать id, на который необходимо посылать фотографии',
         default=chanel_id
     )
+    parser.add_argument(
+        '-im',
+        help='укажите название фото с расширением,'
+             ' и путём, которое опубликовать',
+    )
     args = parser.parse_args()
     return args
 
@@ -35,7 +41,7 @@ def add_photo_paths():
     return paths
 
 
-def publish_images_to_channel(args, token, paths):
+def publish_endlessly_random_photo(args, token, paths):
     bot = telegram.Bot(token=token)
     while True:
         random.shuffle(paths)
@@ -44,16 +50,31 @@ def publish_images_to_channel(args, token, paths):
                 try:
                     bot.send_photo(args.id, pictures)
                 except telegram.error.NetworkError:
-                    print('Неудачная попытка соединения, reconnect через 20 секунд')
+                    print('Неудачная попытка соединения,'
+                          ' reconnect через 20 секунд')
                     time.sleep(seconds)
             time.sleep(args.t)
 
 
+def publish_images_to_channel(args, token):
+    bot = telegram.Bot(token=token)
+    with open(args.im, 'rb') as pictures:
+        try:
+            bot.send_photo(args.id, pictures)
+        except telegram.error.NetworkError:
+            print('Неудачная попытка соединения,'
+                  ' reconnect через 20 секунд')
+            time.sleep(seconds)
+
+
 if __name__ == '__main__':
     load_dotenv()
-    chanel_id = os.environ['TELEGRAM_CHANEL_ID']
+    chanel_id = os.environ['CHANEL_ID']
     token = os.environ['TELEGRAM_TOKEN']
     seconds = 20
     args = input_parsing_command_line()
     paths = add_photo_paths()
-    publish_images_to_channel(args, token, paths)
+    if args.im:
+        publish_images_to_channel(args, token)
+    else:
+        publish_endlessly_random_photo(args, token, paths)
