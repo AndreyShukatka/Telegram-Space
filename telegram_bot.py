@@ -3,7 +3,6 @@ import os
 import random
 import time
 from dotenv import load_dotenv
-import requests
 import telegram
 
 
@@ -42,7 +41,7 @@ def add_photo_paths():
     return paths
 
 
-def publish_endlessly_random_photo(args, token, paths):
+def publish_endlessly_random_photos(args, token, paths):
     bot = telegram.Bot(token=token)
     seconds = 20
     while True:
@@ -58,7 +57,7 @@ def publish_endlessly_random_photo(args, token, paths):
             time.sleep(args.t)
 
 
-def publish_images_to_channel(args, token):
+def publish_image_to_channel(args, token):
     bot = telegram.Bot(token=token)
     seconds = 20
     with open(args.im, 'rb') as pictures:
@@ -76,6 +75,6 @@ if __name__ == '__main__':
     args = input_parsing_command_line()
     paths = add_photo_paths()
     if args.im:
-        publish_images_to_channel(args, token)
+        publish_image_to_channel(args, token)
     else:
-        publish_endlessly_random_photo(args, token, paths)
+        publish_endlessly_random_photos(args, token, paths)
