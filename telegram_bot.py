@@ -8,6 +8,7 @@ import telegram
 
 
 def input_parsing_command_line():
+    chanel_id = os.environ['CHANEL_ID']
     parser = argparse.ArgumentParser(
         description='Программа отправляет фотографии'
                     ' в Телеграмм канал с заданной интенсивностью'
@@ -43,6 +44,7 @@ def add_photo_paths():
 
 def publish_endlessly_random_photo(args, token, paths):
     bot = telegram.Bot(token=token)
+    seconds = 20
     while True:
         random.shuffle(paths)
         for path in paths:
@@ -58,6 +60,7 @@ def publish_endlessly_random_photo(args, token, paths):
 
 def publish_images_to_channel(args, token):
     bot = telegram.Bot(token=token)
+    seconds = 20
     with open(args.im, 'rb') as pictures:
         try:
             bot.send_photo(args.id, pictures)
@@ -69,9 +72,7 @@ def publish_images_to_channel(args, token):
 
 if __name__ == '__main__':
     load_dotenv()
-    chanel_id = os.environ['CHANEL_ID']
     token = os.environ['TELEGRAM_TOKEN']
-    seconds = 20
     args = input_parsing_command_line()
     paths = add_photo_paths()
     if args.im:
