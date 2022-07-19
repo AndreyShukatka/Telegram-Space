@@ -15,7 +15,7 @@ def input_parsing_command_line():
         '-t',
         help='укажите количество секунд, которое '
              'необходимо для задержки отправления фото',
-        default= '10',
+        default='10',
         type=int
     )
     parser.add_argument(
