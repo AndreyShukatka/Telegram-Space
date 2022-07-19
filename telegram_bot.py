@@ -51,7 +51,7 @@ def publish_images_to_channel(args, token, paths):
 
 if __name__ == '__main__':
     load_dotenv()
-    chanel_id = os.environ['CHANEL_ID']
+    chanel_id = os.environ['TELEGRAM_CHANEL_ID']
     token = os.environ['TELEGRAM_TOKEN']
     seconds = 20
     args = input_parsing_command_line()
