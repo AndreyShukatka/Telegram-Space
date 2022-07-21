@@ -41,32 +41,29 @@ def add_photo_paths():
     return paths
 
 
-def publish_endlessly_random_photos(args, token, paths):
+def sending_file(pictures, token):
     bot = telegram.Bot(token=token)
     seconds = 20
+    try:
+        bot.send_photo(args.id, pictures)
+    except telegram.error.NetworkError:
+        print('Неудачная попытка соединения,'
+              ' reconnect через 20 секунд')
+        time.sleep(seconds)
+
+
+def publish_endlessly_random_photos(args, paths):
     while True:
         random.shuffle(paths)
         for path in paths:
             with open(path, 'rb') as pictures:
-                try:
-                    bot.send_photo(args.id, pictures)
-                except telegram.error.NetworkError:
-                    print('Неудачная попытка соединения,'
-                          ' reconnect через 20 секунд')
-                    time.sleep(seconds)
+                sending_file(pictures, token)
             time.sleep(args.t)
 
 
-def publish_image_to_channel(args, token):
-    bot = telegram.Bot(token=token)
-    seconds = 20
+def publish_image_to_channel(args):
     with open(args.im, 'rb') as pictures:
-        try:
-            bot.send_photo(args.id, pictures)
-        except telegram.error.NetworkError:
-            print('Неудачная попытка соединения,'
-                  ' reconnect через 20 секунд')
-            time.sleep(seconds)
+        sending_file(pictures, token)
 
 
 if __name__ == '__main__':
@@ -75,6 +72,6 @@ if __name__ == '__main__':
     args = input_parsing_command_line()
     paths = add_photo_paths()
     if args.im:
-        publish_image_to_channel(args, token)
+        publish_image_to_channel(args)
     else:
-        publish_endlessly_random_photos(args, token, paths)
+        publish_endlessly_random_photos(args, paths)
