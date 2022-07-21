@@ -6,14 +6,14 @@ from dotenv import load_dotenv
 import telegram
 
 
-def input_parsing_command_line():
-    channel_id = os.environ['TELEGRAM_CHANNEL_ID']
+def input_parsing_command_line(channel_id):
     parser = argparse.ArgumentParser(
         description='Программа отправляет фотографии'
                     ' в Телеграмм канал с заданной интенсивностью'
     )
     parser.add_argument(
         '-t',
+        '--seconds_delay',
         help='укажите количество секунд, которое '
              'необходимо для задержки отправления фото',
         default='10',
@@ -21,11 +21,13 @@ def input_parsing_command_line():
     )
     parser.add_argument(
         '-id',
+        '--channel_id',
         help='Указать id, на который необходимо посылать фотографии',
         default=channel_id
     )
     parser.add_argument(
         '-im',
+        '--image_path',
         help='укажите название фото с расширением,'
              ' и путём, которое опубликовать',
     )
@@ -68,8 +70,9 @@ def publish_image_to_channel(args):
 
 if __name__ == '__main__':
     load_dotenv()
+    channel_id = os.environ['TELEGRAM_CHANNEL_ID']
     token = os.environ['TELEGRAM_TOKEN']
-    args = input_parsing_command_line()
+    args = input_parsing_command_line(channel_id)
     paths = add_photo_paths()
     if args.im:
         publish_image_to_channel(args)
