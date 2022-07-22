@@ -51,7 +51,7 @@ python fetch_epic_nasa.py -с "указать количество скачив�
 ```
 - В командной строке прописать: 
 ```
-python python fetch_apod_nasa.py --count 10
+python fetch_apod_nasa.py --count 10
 ```
 По умолчанию стоит --count 5
 
