@@ -6,13 +6,12 @@ from dotenv import load_dotenv
 import telegram
 
 
-def input_parsing_command_line(channel_id):
+def input_parsing_command_line():
     parser = argparse.ArgumentParser(
         description='Программа отправляет фотографии'
                     ' в Телеграмм канал с заданной интенсивностью'
     )
     parser.add_argument(
-        '-t',
         '--seconds_delay',
         help='укажите количество секунд, которое '
              'необходимо для задержки отправления фото',
@@ -20,13 +19,6 @@ def input_parsing_command_line(channel_id):
         type=int
     )
     parser.add_argument(
-        '-id',
-        '--channel_id',
-        help='Указать id, на который необходимо посылать фотографии',
-        default=channel_id
-    )
-    parser.add_argument(
-        '-im',
         '--image_path',
         help='укажите название фото с расширением,'
              ' и путём, которое опубликовать',
@@ -43,38 +35,35 @@ def add_photo_paths():
     return paths
 
 
-def sending_file(pictures, token):
+def publish_image_to_channel(path, token):
     bot = telegram.Bot(token=token)
     seconds = 20
-    try:
-        bot.send_photo(args.id, pictures)
-    except telegram.error.NetworkError:
-        print('Неудачная попытка соединения,'
-              ' reconnect через 20 секунд')
-        time.sleep(seconds)
+    with open(path, 'rb') as pictures:
+        try:
+            bot.send_photo(channel_id, pictures)
+        except telegram.error.NetworkError:
+            print('Неудачная попытка соединения,'
+                    ' reconnect через 20 секунд')
+            time.sleep(seconds)
 
 
-def publish_endlessly_random_photos(args, paths):
+def publish_endlessly_random_photos(paths, token, seconds_delay):
     while True:
         random.shuffle(paths)
         for path in paths:
-            with open(path, 'rb') as pictures:
-                sending_file(pictures, token)
-            time.sleep(args.t)
-
-
-def publish_image_to_channel(args):
-    with open(args.im, 'rb') as pictures:
-        sending_file(pictures, token)
+            publish_image_to_channel(path, token)
+            time.sleep(seconds_delay)
 
 
 if __name__ == '__main__':
     load_dotenv()
     channel_id = os.environ['TELEGRAM_CHANNEL_ID']
     token = os.environ['TELEGRAM_TOKEN']
-    args = input_parsing_command_line(channel_id)
+    args = input_parsing_command_line()
+    path = args.image_path
     paths = add_photo_paths()
-    if args.im:
-        publish_image_to_channel(args)
+    seconds_delay = args.seconds_delay
+    if args.image_path:
+        publish_image_to_channel(path, token)
     else:
-        publish_endlessly_random_photos(args, paths)
+        publish_endlessly_random_photos(paths, token, seconds_delay)
