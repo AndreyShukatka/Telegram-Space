@@ -10,7 +10,7 @@ def input_parsing_command_line():
         description='Программа скачивает фотографии космоса Nasa'
     )
     parser.add_argument(
-        '-c',
+        '--count',
         help='Количество фото',
         default='5'
     )
@@ -40,5 +40,5 @@ def nasa_download_image(token, photos_count):
 if __name__ == '__main__':
     load_dotenv()
     token = os.environ['NASA_TOKEN']
-    photos_count = input_parsing_command_line().c
+    photos_count = input_parsing_command_line().count
     nasa_download_image(token, photos_count)
