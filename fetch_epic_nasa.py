@@ -10,7 +10,7 @@ def input_parsing_command_line():
     parser = argparse.ArgumentParser(
         description='Программа скачивает фотографии земли из космоса Nasa'
     )
-    parser.add_argument('-с',
+    parser.add_argument('--count',
                         help='Количество фото',
                         default='5',
                         type=int
@@ -45,5 +45,5 @@ def download_epic_photo(token, amount):
 if __name__ == '__main__':
     load_dotenv()
     token = os.environ['NASA_TOKEN']
-    amount = input_parsing_command_line().с
+    amount = input_parsing_command_line().count
     download_epic_photo(token, amount)
