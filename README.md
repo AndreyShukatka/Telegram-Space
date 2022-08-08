@@ -17,7 +17,7 @@ python -m venv env
 - Распаковать архив в папку с вашим виртуальным окружением
 - Прописать в виртуальном окружении:
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 
